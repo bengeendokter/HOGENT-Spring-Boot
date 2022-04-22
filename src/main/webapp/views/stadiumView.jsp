@@ -6,6 +6,6 @@
 	<title>Hello</title>
 </head>
 <body>	
-<h2>${helloMessage}</h2>
+<h2>${stadiumNaam}</h2>
 </body>
 </html>

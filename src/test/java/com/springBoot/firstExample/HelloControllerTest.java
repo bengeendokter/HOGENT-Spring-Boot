@@ -21,38 +21,35 @@ import org.springframework.web.context.WebApplicationContext;
 @WebAppConfiguration
 @SpringBootTest
 //@ContextConfiguration(classes = WebConfig.class)
-public class HelloControllerTest {
-
-    @Autowired
-    private WebApplicationContext wac;
-
-    private MockMvc mockMvc;
-
-    @BeforeEach
-    public void before() {
-        mockMvc = 
-            MockMvcBuilders.webAppContextSetup(wac).build();
-    }
-
-    @Test
-    public void testHelloGet() throws Exception {
-
-        mockMvc.perform(get("/hello"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("nameForm"))
-                .andExpect(model().attributeExists("name"));
-    }
-
-    @Test
-    public void testHelloPost() throws Exception {
-
-        mockMvc.perform(post("/hello")
-                .param("value", "test")
-        )
-                .andExpect(status().isOk())
-                .andExpect(view().name("helloView"))
-                .andExpect(model().attributeExists("helloMessage"))
-                .andExpect(model().attribute("helloMessage", "Hello test!"));
-
-    }
+public class HelloControllerTest
+{
+	
+	@Autowired
+	private WebApplicationContext wac;
+	
+	private MockMvc mockMvc;
+	
+	@BeforeEach
+	public void before()
+	{
+		mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+	}
+	
+	@Test
+	public void testHelloGet() throws Exception
+	{
+		
+		mockMvc.perform(get("/hello")).andExpect(status().isOk()).andExpect(view().name("nameForm"))
+				.andExpect(model().attributeExists("name"));
+	}
+	
+	@Test
+	public void testHelloPost() throws Exception
+	{
+		
+		mockMvc.perform(post("/hello").param("value", "test")).andExpect(status().isOk())
+				.andExpect(view().name("helloView")).andExpect(model().attributeExists("helloMessage"))
+				.andExpect(model().attribute("helloMessage", "Hello test!"));
+		
+	}
 }
