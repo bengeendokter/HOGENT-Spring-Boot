@@ -30,8 +30,8 @@ public class FifaController
 	@PostMapping
 	public String onSubmit(@ModelAttribute Stadium stadium, Model model)
 	{
-		System.out.println(stadium.getNaam()); // null
 		model.addAttribute("stadiumNaam", stadium.getNaam());
+		model.addAttribute("ticketten", voetbalService.getWedstrijdenByStadium(stadium.getNaam()));
 		return "stadiumView";
 	}
 	
