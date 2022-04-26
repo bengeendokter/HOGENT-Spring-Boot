@@ -1,8 +1,13 @@
 package com.springBoot.HOGENTSpringBoot;
 
+import java.util.Locale;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +27,7 @@ public class FifaController
 	@Autowired
 	private VoetbalService voetbalService;
 	
+	// TODO mag niet zo maar moet opgehaald worden via ticket
 	private Stadium stadium;
 	
 	@GetMapping
@@ -59,17 +65,24 @@ public class FifaController
 	}
 	
 	@PostMapping(value = "/{id}")
-	public String wedstrijdUpdate(@PathVariable("id") String id, Model model)
+	public String wedstrijdUpdate(@PathVariable("id") String id, @Valid AankoopTicket aankoopTicket,
+			BindingResult result, Model model, Locale locale)
 	{
-//		model.addAttribute("stadiumNaam", stadium.getNaam());
-//		WedstrijdTicket wedstrijdTicket = voetbalService.getWedstrijd(id);
-//		if(wedstrijdTicket == null)
-//		{
-//			return "redirect:/fifa";
-//		}
+		// TODO voetbalcode1 en 2
+//		registrationValidation.validate(registration, result);
+		
+		if(result.hasErrors())
+		{
+			model.addAttribute("stadiumNaam", stadium.getNaam());
+			WedstrijdTicket wedstrijdTicket = voetbalService.getWedstrijd(id);
+			model.addAttribute("wedstrijdTicket", wedstrijdTicket);
+			return "ticketForm";
+		}
+		
+		// TODO boodshap aantal gekocht
+//		model.addAttribute("message",
+//				new Message("error", messageSource.getMessage("contact_save_fail", new Object[] {}, locale)));
 //		
-//		model.addAttribute("wedstrijdTicket", wedstrijdTicket);
-//		model.addAttribute("aankoopTicket", new AankoopTicket(wedstrijdTicket));
 		return "redirect:/fifa";
 	}
 }

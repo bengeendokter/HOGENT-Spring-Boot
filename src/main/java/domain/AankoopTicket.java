@@ -1,8 +1,10 @@
 package domain;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class AankoopTicket
 {
@@ -12,15 +14,15 @@ public class AankoopTicket
 	@Email
 	private String email;
 	
-	@NotEmpty
-	@Min(value = 1, message = "aankoopTicket.aantal.min.message")
-	@Min(value = 25, message = "aankoopTicket.aantal.max.message")
+	@NotNull
+	@Min(value = 1, message = "{aankoopTicket.aantal.min.message}")
+	@Max(value = 25, message = "{aankoopTicket.aantal.max.message}")
 	private int aantal;
 	
-	@NotEmpty
+	@NotNull
 	private int voetbalCode1;
 	
-	@NotEmpty
+	@NotNull
 	private int voetbalCode2;
 	
 	public AankoopTicket(WedstrijdTicket wedstrijdTicket)
