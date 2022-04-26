@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import domain.Stadium;
+import domain.WedstrijdTicket;
 import service.VoetbalService;
 
 @Controller
@@ -24,6 +25,7 @@ public class FifaController
 	{
 		model.addAttribute("stadiums", voetbalService.getStadiumList());
 		model.addAttribute("stadium", new Stadium());
+		
 		return "stadiumForm";
 	}
 	
@@ -32,7 +34,13 @@ public class FifaController
 	{
 		model.addAttribute("stadiumNaam", stadium.getNaam());
 		model.addAttribute("ticketten", voetbalService.getWedstrijdenByStadium(stadium.getNaam()));
-		return "stadiumView";
+		
+		// TODO verwissel tijdelijk return statement
+		// verplaats naar “fifa/**” aankoop/ticket-controller
+//		return "stadiumView";
+		model.addAttribute("ticket", new WedstrijdTicket(
+				voetbalService.getWedstrijdenByStadium(stadium.getNaam()).get(0).getWedstrijd(), 35));
+		return "ticketForm";
 	}
 	
 }

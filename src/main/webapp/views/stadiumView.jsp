@@ -7,7 +7,7 @@
 <head>
 <spring:url value="/css/style.css" var="urlCss"/>
 <link rel="stylesheet" href="${urlCss}" type="text/css" />
-	<title>Hello</title>
+	<title>Stadion: ${stadiumNaam}</title>
 </head>
 <body>	
 <h1>FIFA World Cup Qatar 2022</h1>
