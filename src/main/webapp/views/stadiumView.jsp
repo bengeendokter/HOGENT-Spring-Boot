@@ -15,7 +15,11 @@
 <table>
 <thead><tr><th>Nr</th><th>Voetbalmatch</th><th>Datum</th><th>Aftrap</th><th>Tickets</th></tr></thead>
 <tbody>
-<c:forEach var="ticket" items="${ticketten}"><tr><td>${ticket.wedstrijd.id}</td><td>${ticket.wedstrijd.landen[0]}-${ticket.wedstrijd.landen[1]}</td><td>${ticket.wedstrijd.dag} november</td><td>${ticket.wedstrijd.uur}:00</td><td>${ticket.tickets}</td></tr></c:forEach>
+
+<spring:url value="/fifa/" var="showWedstrijdUrl" />
+<c:forEach var="ticket" items="${ticketten}">
+<tr><td><a href="${showWedstrijdUrl}${ticket.wedstrijd.id}">${ticket.wedstrijd.id}</a></td><td>${ticket.wedstrijd.landen[0]}-${ticket.wedstrijd.landen[1]}</td><td>${ticket.wedstrijd.dag} november</td><td>${ticket.wedstrijd.uur}:00</td><td>${ticket.tickets}</td></tr>
+</c:forEach>
 </tbody>
 </table>
 

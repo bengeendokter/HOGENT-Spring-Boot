@@ -10,26 +10,31 @@
 <body>
 <h1>FIFA World Cup Qatar 2022</h1>
 <h2>Stadion: ${stadiumNaam}</h2>
-<h3>${ticketten[0].wedstrijd}</h3>
-<h3>aantal tickets beschikbaar: ${ticketten[0].tickets}</h3>
+<h3>${wedstrijdTicket.wedstrijd}</h3>
+<h3>aantal tickets beschikbaar: ${wedstrijdTicket.tickets}</h3>
 
 <!-- TODO modelAttribute -->
-<form:form method="POST" action="fifa/${ticketten[0].wedstrijd.id}" modelAttribute="ticket">
+<form:form method="POST" modelAttribute="aankoopTicket">
 	<p>
 	<label for="email" >email:</label>
-	<form:input id="email" path="" size="20"/>
+	<form:input id="email" path="email" size="20"/>
+	<form:errors path="email" cssClass="error" />
 	</p>
 	<p>
 	<label for="aantal">aantal tickets:</label>
-	<form:input id="aantal" path="" size="20"/>
+	<form:input id="aantal" path="aantal" size="20"/>
+	<form:errors path="aantal" cssClass="error" />
 	</p>
 	<p>
 	<label for="voetbalCode1">voetbalCode1:</label>
-	<form:input id="voetbalCode1" path="" size="20"/>
+	<form:input id="voetbalCode1" path="voetbalCode1" size="20"/>
+	<form:errors path="voetbalCode1" cssClass="error" />
+	
 	</p>
 	<p>
 	<label for="voetbalCode2">voetbalCode2:</label>
-	<form:input id="voetbalCode2" path="" size="20"/>
+	<form:input id="voetbalCode2" path="voetbalCode2" size="20"/>
+	<form:errors path="voetbalCode1" cssClass="error" />
 	</p>
 	<input type="submit" value="Koop" />
 </form:form>
