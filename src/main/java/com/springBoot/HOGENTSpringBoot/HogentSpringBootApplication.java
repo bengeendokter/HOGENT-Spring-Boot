@@ -8,6 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import service.VoetbalService;
 import service.VoetbalServiceImpl;
+import validation.AankoopTicketValidation;
 
 @SpringBootApplication
 public class HogentSpringBootApplication implements WebMvcConfigurer
@@ -29,5 +30,11 @@ public class HogentSpringBootApplication implements WebMvcConfigurer
 	public VoetbalService voetbalService()
 	{
 		return new VoetbalServiceImpl();
+	}
+	
+	@Bean
+	public AankoopTicketValidation aankoopTicketValidation()
+	{
+		return new AankoopTicketValidation();
 	}
 }

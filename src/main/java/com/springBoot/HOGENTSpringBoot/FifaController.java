@@ -1,5 +1,6 @@
 package com.springBoot.HOGENTSpringBoot;
 
+import java.util.List;
 import java.util.Locale;
 
 import javax.validation.Valid;
@@ -18,6 +19,7 @@ import domain.AankoopTicket;
 import domain.Stadium;
 import domain.WedstrijdTicket;
 import service.VoetbalService;
+import validation.AankoopTicketValidation;
 
 @Controller
 @RequestMapping("/fifa")
@@ -27,8 +29,8 @@ public class FifaController
 	@Autowired
 	private VoetbalService voetbalService;
 	
-	// TODO mag niet zo maar moet opgehaald worden via ticket
-	private Stadium stadium;
+	@Autowired
+	private AankoopTicketValidation aankoopTicketValidation;
 	
 	@GetMapping
 	public String stadiumForm(Model model)
@@ -42,7 +44,6 @@ public class FifaController
 	@PostMapping
 	public String stadiumView(@ModelAttribute Stadium stadium, Model model)
 	{
-		this.stadium = stadium;
 		model.addAttribute("stadiumNaam", stadium.getNaam());
 		model.addAttribute("ticketten", voetbalService.getWedstrijdenByStadium(stadium.getNaam()));
 		
@@ -52,13 +53,26 @@ public class FifaController
 	@GetMapping(value = "/{id}")
 	public String wedstrijdForm(@PathVariable("id") String id, Model model)
 	{
-		model.addAttribute("stadiumNaam", stadium.getNaam());
 		WedstrijdTicket wedstrijdTicket = voetbalService.getWedstrijd(id);
 		if(wedstrijdTicket == null)
 		{
 			return "redirect:/fifa";
 		}
 		
+		List<String> stadiums = voetbalService.getStadiumList();
+		List<WedstrijdTicket> wedstrijden;
+		String stadiumNaam = "";
+		
+		for(String stadium : stadiums)
+		{
+			wedstrijden = voetbalService.getWedstrijdenByStadium(stadium);
+			if(wedstrijden.contains(wedstrijdTicket))
+			{
+				stadiumNaam = stadium;
+			}
+		}
+		
+		model.addAttribute("stadiumNaam", stadiumNaam);
 		model.addAttribute("wedstrijdTicket", wedstrijdTicket);
 		model.addAttribute("aankoopTicket", new AankoopTicket(wedstrijdTicket));
 		return "ticketForm";
@@ -68,13 +82,31 @@ public class FifaController
 	public String wedstrijdUpdate(@PathVariable("id") String id, @Valid AankoopTicket aankoopTicket,
 			BindingResult result, Model model, Locale locale)
 	{
-		// TODO voetbalcode1 en 2
-//		registrationValidation.validate(registration, result);
+		WedstrijdTicket wedstrijdTicket = voetbalService.getWedstrijd(id);
+		if(wedstrijdTicket == null)
+		{
+			return "redirect:/fifa";
+		}
+		
+		aankoopTicketValidation.validate(aankoopTicket, result);
 		
 		if(result.hasErrors())
 		{
-			model.addAttribute("stadiumNaam", stadium.getNaam());
-			WedstrijdTicket wedstrijdTicket = voetbalService.getWedstrijd(id);
+			// TODO did doen of redirect en aankoopTicket toevoegen in GetMapping?
+			List<String> stadiums = voetbalService.getStadiumList();
+			List<WedstrijdTicket> wedstrijden;
+			String stadiumNaam = "";
+			
+			for(String stadium : stadiums)
+			{
+				wedstrijden = voetbalService.getWedstrijdenByStadium(stadium);
+				if(wedstrijden.contains(wedstrijdTicket))
+				{
+					stadiumNaam = stadium;
+				}
+			}
+			
+			model.addAttribute("stadiumNaam", stadiumNaam);
 			model.addAttribute("wedstrijdTicket", wedstrijdTicket);
 			return "ticketForm";
 		}

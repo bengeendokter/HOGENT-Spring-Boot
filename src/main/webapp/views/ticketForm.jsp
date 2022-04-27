@@ -37,7 +37,7 @@
 	<p>
 	<label for="voetbalCode2">voetbalCode2:</label>
 	<form:input id="voetbalCode2" path="voetbalCode2" size="20"/>
-	<form:errors path="voetbalCode1" cssClass="error" />
+	<form:errors path="voetbalCode2" cssClass="error" />
 	</p>
 	<input type="submit" value="Koop" />
 </form:form>
