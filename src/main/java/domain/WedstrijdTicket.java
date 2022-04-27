@@ -29,7 +29,7 @@ public class WedstrijdTicket
 	{
 		if(aantal <= 0)
 		{
-			return -1;
+			return 0;
 		}
 		
 		//Nog voldoende tickets

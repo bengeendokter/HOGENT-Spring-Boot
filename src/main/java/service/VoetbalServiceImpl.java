@@ -30,7 +30,7 @@ public class VoetbalServiceImpl implements VoetbalService
 		mapWedstrijdById.put("1",
 				new WedstrijdTicket(new Wedstrijd("1", new String[] {"België", "Canada"}, 26, 21), 35));
 		mapWedstrijdById.put("2",
-				new WedstrijdTicket(new Wedstrijd("2", new String[] {"Brazilië", "Zwitserland"}, 27, 18), 21));
+				new WedstrijdTicket(new Wedstrijd("2", new String[] {"Brazilië", "Zwitserland"}, 27, 18), 0));
 		mapWedstrijdById.put("3",
 				new WedstrijdTicket(new Wedstrijd("3", new String[] {"Marroko", "Kroatië"}, 28, 15), 5));
 		mapWedstrijdById.put("4",

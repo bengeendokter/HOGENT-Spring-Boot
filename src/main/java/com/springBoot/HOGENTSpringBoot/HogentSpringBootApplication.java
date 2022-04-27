@@ -2,7 +2,9 @@ package com.springBoot.HOGENTSpringBoot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -36,5 +38,13 @@ public class HogentSpringBootApplication implements WebMvcConfigurer
 	public AankoopTicketValidation aankoopTicketValidation()
 	{
 		return new AankoopTicketValidation();
+	}
+	
+	@Bean
+	public MessageSource messageSource()
+	{
+		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+		messageSource.setBasename("messages");
+		return messageSource;
 	}
 }

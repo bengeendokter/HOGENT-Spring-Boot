@@ -6,6 +6,7 @@ import java.util.Locale;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,12 +20,15 @@ import domain.AankoopTicket;
 import domain.Stadium;
 import domain.WedstrijdTicket;
 import service.VoetbalService;
+import utility.Message;
 import validation.AankoopTicketValidation;
 
 @Controller
 @RequestMapping("/fifa")
 public class FifaController
 {
+	@Autowired
+	private MessageSource messageSource;
 	
 	@Autowired
 	private VoetbalService voetbalService;
@@ -51,15 +55,26 @@ public class FifaController
 	}
 	
 	@GetMapping(value = "/{id}")
-	public String wedstrijdForm(@PathVariable("id") String id, Model model)
+	public String wedstrijdForm(@PathVariable("id") String id, Model model, Locale locale)
 	{
+		List<String> stadiums = voetbalService.getStadiumList();
 		WedstrijdTicket wedstrijdTicket = voetbalService.getWedstrijd(id);
 		if(wedstrijdTicket == null)
 		{
 			return "redirect:/fifa";
 		}
 		
-		List<String> stadiums = voetbalService.getStadiumList();
+		if(wedstrijdTicket.uitverkocht())
+		{
+			// TODO zelfde propleem, kan ik redirect doen en model attributes extra meegeven?
+			model.addAttribute("message",
+					new Message("error", messageSource.getMessage("tickets_uitverkocht", new Object[] {}, locale)));
+			model.addAttribute("stadiums", stadiums);
+			model.addAttribute("stadium", new Stadium());
+			
+			return "stadiumForm";
+		}
+		
 		List<WedstrijdTicket> wedstrijden;
 		String stadiumNaam = "";
 		
@@ -82,7 +97,9 @@ public class FifaController
 	public String wedstrijdUpdate(@PathVariable("id") String id, @Valid AankoopTicket aankoopTicket,
 			BindingResult result, Model model, Locale locale)
 	{
+		List<String> stadiums = voetbalService.getStadiumList();
 		WedstrijdTicket wedstrijdTicket = voetbalService.getWedstrijd(id);
+		
 		if(wedstrijdTicket == null)
 		{
 			return "redirect:/fifa";
@@ -93,7 +110,6 @@ public class FifaController
 		if(result.hasErrors())
 		{
 			// TODO did doen of redirect en aankoopTicket toevoegen in GetMapping?
-			List<String> stadiums = voetbalService.getStadiumList();
 			List<WedstrijdTicket> wedstrijden;
 			String stadiumNaam = "";
 			
@@ -111,10 +127,16 @@ public class FifaController
 			return "ticketForm";
 		}
 		
-		// TODO boodshap aantal gekocht
-//		model.addAttribute("message",
-//				new Message("error", messageSource.getMessage("contact_save_fail", new Object[] {}, locale)));
-//		
-		return "redirect:/fifa";
+		// TODO zelfde propleem, kan ik redirect doen en model attributes extra meegeven?
+		int aantal = aankoopTicket.getAantal();
+		int gekocht = wedstrijdTicket.ticketsKopen(aantal);
+		String code = gekocht == 1 ? "ticket_gekocht" : "tickets_gekocht";
+		model.addAttribute("message",
+				new Message("error", messageSource.getMessage(code, new Object[] {gekocht}, locale)));
+		model.addAttribute("stadiums", stadiums);
+		model.addAttribute("stadium", new Stadium());
+		
+		// TODO zonder redirect moet je 2 keer klikken, hoe oplossen?
+		return "stadiumForm";
 	}
 }
