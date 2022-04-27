@@ -17,13 +17,13 @@ public class AankoopTicket
 	@NotNull
 	@Min(value = 1, message = "{aankoopTicket.aantal.min.message}")
 	@Max(value = 25, message = "{aankoopTicket.aantal.max.message}")
-	private int aantal;
+	private String aantal = "1";
 	
-	@NotNull
-	private int voetbalCode1;
+	@NotEmpty
+	private String voetbalCode1 = "10";
 	
-	@NotNull
-	private int voetbalCode2;
+	@NotEmpty
+	private String voetbalCode2 = "20";
 	
 	public AankoopTicket(WedstrijdTicket wedstrijdTicket)
 	{
@@ -40,32 +40,32 @@ public class AankoopTicket
 		this.email = email;
 	}
 	
-	public int getAantal()
+	public String getAantal()
 	{
 		return aantal;
 	}
 	
-	public void setAantal(int aantal)
+	public void setAantal(String aantal)
 	{
 		this.aantal = aantal;
 	}
 	
-	public int getVoetbalCode1()
+	public String getVoetbalCode1()
 	{
 		return voetbalCode1;
 	}
 	
-	public void setVoetbalCode1(int voetbalCode1)
+	public void setVoetbalCode1(String voetbalCode1)
 	{
 		this.voetbalCode1 = voetbalCode1;
 	}
 	
-	public int getVoetbalCode2()
+	public String getVoetbalCode2()
 	{
 		return voetbalCode2;
 	}
 	
-	public void setVoetbalCode2(int voetbalCode2)
+	public void setVoetbalCode2(String voetbalCode2)
 	{
 		this.voetbalCode2 = voetbalCode2;
 	}
