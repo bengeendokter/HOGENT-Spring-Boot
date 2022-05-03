@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import domain.AankoopTicket;
 import domain.Stadium;
@@ -37,10 +38,18 @@ public class FifaController
 	private AankoopTicketValidation aankoopTicketValidation;
 	
 	@GetMapping
-	public String stadiumForm(Model model)
+	public String stadiumForm(@RequestParam(value = "verkocht", required = false) Integer verkocht, Model model,
+			Locale locale)
 	{
 		model.addAttribute("stadiums", voetbalService.getStadiumList());
 		model.addAttribute("stadium", new Stadium());
+		
+		if(verkocht != null)
+		{
+			String code = verkocht == 1 ? "ticket_gekocht" : "tickets_gekocht";
+			model.addAttribute("message",
+					new Message("error", messageSource.getMessage(code, new Object[] {verkocht}, locale)));
+		}
 		
 		return "stadiumForm";
 	}
@@ -109,7 +118,7 @@ public class FifaController
 		
 		if(result.hasErrors())
 		{
-			// TODO did doen of redirect en aankoopTicket toevoegen in GetMapping?
+			// TODO dit doen of redirect en aankoopTicket toevoegen in GetMapping?
 			List<WedstrijdTicket> wedstrijden;
 			String stadiumNaam = "";
 			
@@ -127,16 +136,9 @@ public class FifaController
 			return "ticketForm";
 		}
 		
-		// TODO zelfde propleem, kan ik redirect doen en model attributes extra meegeven?
 		int aantal = aankoopTicket.getAantal();
 		int gekocht = wedstrijdTicket.ticketsKopen(aantal);
-		String code = gekocht == 1 ? "ticket_gekocht" : "tickets_gekocht";
-		model.addAttribute("message",
-				new Message("error", messageSource.getMessage(code, new Object[] {gekocht}, locale)));
-		model.addAttribute("stadiums", stadiums);
-		model.addAttribute("stadium", new Stadium());
 		
-		// TODO zonder redirect moet je 2 keer klikken, hoe oplossen?
-		return "stadiumForm";
+		return "redirect:/fifa?verkocht=" + gekocht;
 	}
 }

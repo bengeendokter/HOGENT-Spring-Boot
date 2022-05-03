@@ -48,7 +48,7 @@ class FifaControllerTests
 //		Stadium stadium = new Stadium();
 //		stadium.setNaam("test");
 		// TODO vraag hoe non string parameters meegeven
-		mockMvc.perform(post("/fifa").param("percentIncrease", "test")).andExpect(view().name("stadiumView"))
+		mockMvc.perform(post("/fifa")).andExpect(view().name("stadiumView"))
 				.andExpect(model().attributeExists("stadiumNaam")).andExpect(model().attributeExists("ticketten"));
 	}
 }

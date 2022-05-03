@@ -16,7 +16,6 @@
 <h3>${wedstrijdTicket.wedstrijd}</h3>
 <h3>aantal tickets beschikbaar: ${wedstrijdTicket.tickets}</h3>
 
-<!-- TODO modelAttribute -->
 <form:form method="POST" modelAttribute="aankoopTicket">
 	<p>
 	<label for="email" >email:</label>
