@@ -5,23 +5,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-<spring:url value="/css/style.css" var="urlCss"/>
+<spring:url value="/css/style.css" var="urlCss" />
 <link rel="stylesheet" href="${urlCss}" type="text/css" />
-	<title>Stadion: ${stadiumNaam}</title>
+<title>Stadion: ${stadiumNaam}</title>
 </head>
-<body>	
-<h1>FIFA World Cup Qatar 2022</h1>
-<h2>Stadion: ${stadiumNaam}</h2>
-<table>
-<thead><tr><th>Nr</th><th>Voetbalmatch</th><th>Datum</th><th>Aftrap</th><th>Tickets</th></tr></thead>
-<tbody>
+<body>
+	<h1>FIFA World Cup Qatar 2022</h1>
+	<h2>Stadion: ${stadiumNaam}</h2>
+	<table>
+		<thead>
+			<tr>
+				<th>Nr</th>
+				<th>Voetbalmatch</th>
+				<th>Datum</th>
+				<th>Aftrap</th>
+				<th>Tickets</th>
+			</tr>
+		</thead>
+		<tbody>
 
-<spring:url value="/fifa/" var="showWedstrijdUrl" />
-<c:forEach var="ticket" items="${ticketten}">
-<tr><td><a href="${showWedstrijdUrl}${ticket.wedstrijd.id}">${ticket.wedstrijd.id}</a></td><td>${ticket.wedstrijd.landen[0]}-${ticket.wedstrijd.landen[1]}</td><td>${ticket.wedstrijd.dag} november</td><td>${ticket.wedstrijd.uur}:00</td><td>${ticket.tickets}</td></tr>
-</c:forEach>
-</tbody>
-</table>
+			<spring:url value="/fifa/" var="showWedstrijdUrl" />
+			<c:forEach var="ticket" items="${ticketten}">
+				<tr>
+					<td><a href="${showWedstrijdUrl}${ticket.wedstrijd.id}">${ticket.wedstrijd.id}</a></td>
+					<td>${ticket.wedstrijd.landen[0]}-${ticket.wedstrijd.landen[1]}</td>
+					<td>${ticket.wedstrijd.dag}november</td>
+					<td>${ticket.wedstrijd.uur}:00</td>
+					<td>${ticket.tickets}</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+	<form action="/logout" method="post">
+		<input type="submit" value="Log out" /> <input type="hidden"
+			name="${_csrf.parameterName}" value="${_csrf.token}" />
+	</form>
 
 </body>
 </html>

@@ -7,15 +7,15 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<spring:url value="/css/style.css" var="urlCss"/>
+<spring:url value="/css/style.css" var="urlCss" />
 <link rel="stylesheet" href="${urlCss}" type="text/css" />
 <title>Select Stadium</title>
 </head>
 <body>
-    <c:if test="${not empty message}">
-    <p class="${message.type}">${message.message}</p>     
-    </c:if>
-        
+	<c:if test="${not empty message}">
+		<p class="${message.type}">${message.message}</p>
+	</c:if>
+
 	<h1>FIFA World Cup Qatar 2022</h1>
 	<form:form method="POST" action="fifa" modelAttribute="stadium">
             stadiums 
@@ -26,5 +26,11 @@
 		</form:select>
 		<input type="submit" value="Voer uit" />
 	</form:form>
+
+	<form action="/logout" method="post">
+		<input type="submit" value="Log out" /> <input type="hidden"
+			name="${_csrf.parameterName}" value="${_csrf.token}" />
+	</form>
+
 </body>
 </html>

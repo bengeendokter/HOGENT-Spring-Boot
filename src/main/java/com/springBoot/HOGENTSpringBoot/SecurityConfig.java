@@ -30,7 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 	@Override
 	protected void configure(HttpSecurity http) throws Exception
 	{
-		http.authorizeRequests().antMatchers("/403*").permitAll().antMatchers("/*").hasRole("ADMIN");
+		http.authorizeRequests().antMatchers("/403*").permitAll().antMatchers("/fifa").hasRole("USER")
+				.antMatchers("/fifa/**").hasRole("ADMIN");
 		
 		http.formLogin().defaultSuccessUrl("/fifa", true).loginPage("/login").permitAll().and().exceptionHandling()
 				.accessDeniedPage("/403").and().csrf();
