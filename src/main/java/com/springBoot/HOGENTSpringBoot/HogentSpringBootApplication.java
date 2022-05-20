@@ -9,8 +9,10 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import service.JpaWedstrijdTicketDao;
 import service.VoetbalService;
-import service.VoetbalServiceJpa;
+import service.VoetbalServiceImpl;
+import service.WedstrijdTicketDao;
 import validation.AankoopTicketValidation;
 
 @SpringBootApplication
@@ -20,6 +22,7 @@ public class HogentSpringBootApplication implements WebMvcConfigurer
 	public static void main(String[] args)
 	{
 		SpringApplication.run(HogentSpringBootApplication.class, args);
+		
 	}
 	
 	@Override
@@ -38,7 +41,13 @@ public class HogentSpringBootApplication implements WebMvcConfigurer
 	@Bean
 	public VoetbalService voetbalService()
 	{
-		return new VoetbalServiceJpa();
+		return new VoetbalServiceImpl();
+	}
+	
+	@Bean
+	public WedstrijdTicketDao wedstrijdTicketDao()
+	{
+		return new JpaWedstrijdTicketDao();
 	}
 	
 	@Bean

@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 //Aantal tickets beschikbaar per wedstrijd
@@ -24,6 +25,9 @@ public class WedstrijdTicket implements Serializable
 	private Wedstrijd wedstrijd;
 	
 	private int tickets; //aantal tickets beschikbaar
+	
+	@ManyToOne
+	private Stadium stadium;
 	
 	public WedstrijdTicket()
 	{

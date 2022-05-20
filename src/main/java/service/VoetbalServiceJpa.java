@@ -22,12 +22,11 @@ public class VoetbalServiceJpa implements VoetbalService
 	//mapWedstrijdById, per id een wedstrijdTicket
 	private final Map<String, WedstrijdTicket> mapWedstrijdById = new HashMap<>();
 	
-	private GenericDao<Wedstrijd> wedstrijdRepo;
-	private WedstrijdTicketDao wedstrijdTicketRepo;
+//	private GenericDao<Wedstrijd> wedstrijdRepo;
 	
 	public VoetbalServiceJpa()
 	{
-		this.wedstrijdRepo = new GenericDaoJpa<>(Wedstrijd.class);
+//		this.wedstrijdRepo = new GenericDaoJpa<>(Wedstrijd.class);
 //		this.wedstrijdTicketRepo = new JpaWedstrijdTicketDao();
 //		wedstrijdTicketRepo
 //				.insert(new WedstrijdTicket(new Wedstrijd("1", new String[] {"België", "Canada"}, 26, 21), 35));

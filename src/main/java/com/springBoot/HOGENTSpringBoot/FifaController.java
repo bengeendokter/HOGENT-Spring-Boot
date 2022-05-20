@@ -7,6 +7,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,8 +21,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import domain.AankoopTicket;
 import domain.Stadium;
+import domain.Wedstrijd;
 import domain.WedstrijdTicket;
 import service.VoetbalService;
+import service.WedstrijdTicketDao;
 import utility.Message;
 import validation.AankoopTicketValidation;
 
@@ -35,12 +39,33 @@ public class FifaController
 	private VoetbalService voetbalService;
 	
 	@Autowired
+	private WedstrijdTicketDao wedstrijdTicketDao;
+	
+	@Autowired
 	private AankoopTicketValidation aankoopTicketValidation;
+	
+//	constructor met populate dp?
+	
+//	@EventListener
+//	public void seed(ContextRefreshedEvent event)
+//	{
+//		new PopulateDB().run();
+//	}
+	
+	@EventListener
+	public void seed(ContextRefreshedEvent event)
+	{
+		wedstrijdTicketDao
+				.insert(new WedstrijdTicket(new Wedstrijd("1", new String[] {"België", "Canada"}, 26, 21), 35));
+	}
 	
 	@GetMapping
 	public String stadiumForm(@RequestParam(value = "verkocht", required = false) Integer verkocht, Model model,
 			Locale locale)
 	{
+//		wedstrijdTicketDao
+//				.insert(new WedstrijdTicket(new Wedstrijd("1", new String[] {"België", "Canada"}, 26, 21), 35));
+		
 		model.addAttribute("stadiums", voetbalService.getStadiumList());
 		model.addAttribute("stadium", new Stadium());
 		
