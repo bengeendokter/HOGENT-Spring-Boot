@@ -49,6 +49,16 @@ public class WedstrijdTicket implements Serializable
 		return wedstrijd;
 	}
 	
+	public Stadium getStadium()
+	{
+		return stadium;
+	}
+	
+	public void setStadium(Stadium stadium)
+	{
+		this.stadium = stadium;
+	}
+	
 	//We willen 'aantal' tickets kopen
 	public int ticketsKopen(int aantal)
 	{

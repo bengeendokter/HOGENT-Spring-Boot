@@ -1,5 +1,7 @@
 package com.springBoot.HOGENTSpringBoot;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -23,6 +25,7 @@ import domain.AankoopTicket;
 import domain.Stadium;
 import domain.Wedstrijd;
 import domain.WedstrijdTicket;
+import service.StadiumDao;
 import service.VoetbalService;
 import service.WedstrijdTicketDao;
 import utility.Message;
@@ -42,22 +45,10 @@ public class FifaController
 	private WedstrijdTicketDao wedstrijdTicketDao;
 	
 	@Autowired
+	private StadiumDao stadiumDao;
+	
+	@Autowired
 	private AankoopTicketValidation aankoopTicketValidation;
-	
-//	constructor met populate dp?
-	
-//	@EventListener
-//	public void seed(ContextRefreshedEvent event)
-//	{
-//		new PopulateDB().run();
-//	}
-	
-	@EventListener
-	public void seed(ContextRefreshedEvent event)
-	{
-		wedstrijdTicketDao
-				.insert(new WedstrijdTicket(new Wedstrijd("1", new String[] {"België", "Canada"}, 26, 21), 35));
-	}
 	
 	@GetMapping
 	public String stadiumForm(@RequestParam(value = "verkocht", required = false) Integer verkocht, Model model,
@@ -165,5 +156,41 @@ public class FifaController
 		int gekocht = wedstrijdTicket.ticketsKopen(aantal);
 		
 		return "redirect:/fifa?verkocht=" + gekocht;
+	}
+	
+	@EventListener
+	public void seed(ContextRefreshedEvent event)
+	{
+		WedstrijdTicket ticket1 = new WedstrijdTicket(new Wedstrijd("1", new String[] {"België", "Canada"}, 26, 21),
+				35);
+		WedstrijdTicket ticket2 = new WedstrijdTicket(
+				new Wedstrijd("2", new String[] {"Brazilië", "Zwitserland"}, 27, 18), 0);
+		WedstrijdTicket ticket3 = new WedstrijdTicket(new Wedstrijd("3", new String[] {"Marroko", "Kroatië"}, 28, 15),
+				5);
+		WedstrijdTicket ticket4 = new WedstrijdTicket(new Wedstrijd("4", new String[] {"Spanje", "Duitsland"}, 28, 18),
+				95);
+		WedstrijdTicket ticket5 = new WedstrijdTicket(
+				new Wedstrijd("5", new String[] {"Frankrijk", "Denemarken"}, 30, 15), 45);
+		WedstrijdTicket ticket6 = new WedstrijdTicket(new Wedstrijd("6", new String[] {"Argentinië", "Mexico"}, 30, 18),
+				10);
+		WedstrijdTicket ticket7 = new WedstrijdTicket(new Wedstrijd("7", new String[] {"Engeland", "USA"}, 31, 18), 22);
+		WedstrijdTicket ticket8 = new WedstrijdTicket(new Wedstrijd("8", new String[] {"Nederland", "Qatar"}, 31, 21),
+				16);
+		
+		Stadium stadium1 = new Stadium("Al Bayt Stadium",
+				new ArrayList<>(Arrays.asList(ticket1, ticket2, ticket3, ticket6, ticket7)));
+		ticket1.setStadium(stadium1);
+		ticket2.setStadium(stadium1);
+		ticket3.setStadium(stadium1);
+		ticket6.setStadium(stadium1);
+		ticket7.setStadium(stadium1);
+		
+		Stadium stadium2 = new Stadium("Al Thumama Stadium", new ArrayList<>(Arrays.asList(ticket4, ticket5, ticket8)));
+		ticket4.setStadium(stadium2);
+		ticket5.setStadium(stadium2);
+		ticket8.setStadium(stadium2);
+		
+		stadiumDao.insert(stadium1);
+		stadiumDao.insert(stadium2);
 	}
 }

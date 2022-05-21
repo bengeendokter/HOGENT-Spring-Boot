@@ -9,7 +9,9 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import service.JpaStadiumDao;
 import service.JpaWedstrijdTicketDao;
+import service.StadiumDao;
 import service.VoetbalService;
 import service.VoetbalServiceImpl;
 import service.WedstrijdTicketDao;
@@ -48,6 +50,12 @@ public class HogentSpringBootApplication implements WebMvcConfigurer
 	public WedstrijdTicketDao wedstrijdTicketDao()
 	{
 		return new JpaWedstrijdTicketDao();
+	}
+	
+	@Bean
+	public StadiumDao stadiumDao()
+	{
+		return new JpaStadiumDao();
 	}
 	
 	@Bean
