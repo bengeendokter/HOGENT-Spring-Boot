@@ -52,6 +52,7 @@ public class FifaController
 	public String stadiumForm(@RequestParam(value = "verkocht", required = false) Integer verkocht, Model model,
 			Locale locale)
 	{
+		// TODO url parameters verwijderen
 		model.addAttribute("stadiums",
 				stadiumDao.findAll().stream().map(Stadium::toString).collect(Collectors.toList()));
 		model.addAttribute("stadium", new Stadium());
@@ -87,8 +88,7 @@ public class FifaController
 		
 		if(wedstrijdTicket.uitverkocht())
 		{
-			// TODO doe redirect want anders error
-			// TODO zelfde probleem, kan ik redirect doen en model attributes extra meegeven?
+			// TODO doe redirect met session attributes want anders error
 			model.addAttribute("message",
 					new Message("error", messageSource.getMessage("tickets_uitverkocht", new Object[] {}, locale)));
 			model.addAttribute("stadiums", stadiums);
