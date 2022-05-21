@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
@@ -29,8 +30,12 @@
 				<tr>
 					<td><a href="${showWedstrijdUrl}${ticket.wedstrijd.id}">${ticket.wedstrijd.id}</a></td>
 					<td>${ticket.wedstrijd.landen[0]}-${ticket.wedstrijd.landen[1]}</td>
-					<td>${ticket.wedstrijd.dag}november</td>
-					<td>${ticket.wedstrijd.uur}:00</td>
+					<td><fmt:parseDate value="${ticket.wedstrijd.dateTime}"
+							pattern="yyyy-MM-dd'T'HH:mm" var="parsedDate" /> <fmt:formatDate
+							value="${parsedDate}" pattern="dd MMMM" /></td>
+					<td><fmt:parseDate value="${ticket.wedstrijd.dateTime}"
+							pattern="yyyy-MM-dd'T'HH:mm" var="parsedDate" /> <fmt:formatDate
+							value="${parsedDate}" pattern="HH:mm" /></td>
 					<td>${ticket.tickets}</td>
 				</tr>
 			</c:forEach>

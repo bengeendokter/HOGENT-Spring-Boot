@@ -1,6 +1,7 @@
 package domain;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -17,20 +18,17 @@ public class Wedstrijd implements Serializable
 	
 	private String[] landen; //2 landen van de wedstrijd
 	
-	private int dag; //dag van de wedstrijd
-	
-	private int uur; //uur van de wedstrijd
+	private LocalDateTime dateTime;
 	
 	public Wedstrijd()
 	{
 	}
 	
-	public Wedstrijd(Long id, String[] landen, int dag, int uur)
+	public Wedstrijd(Long id, String[] landen, LocalDateTime dateTime)
 	{
 		this.id = id;
 		this.landen = landen;
-		this.dag = dag;
-		this.uur = uur;
+		this.dateTime = dateTime;
 	}
 	
 	public Long getId()
@@ -43,20 +41,16 @@ public class Wedstrijd implements Serializable
 		return landen;
 	}
 	
-	public int getDag()
+	public LocalDateTime getDateTime()
 	{
-		return dag;
-	}
-	
-	public int getUur()
-	{
-		return uur;
+		return dateTime;
 	}
 	
 	@Override
 	public String toString()
 	{
-		return String.format("%s vs %s op %d-11", landen[0], landen[1], dag);
+		return String.format("%s vs %s op %d-%d", landen[0], landen[1], dateTime.getDayOfMonth(),
+				dateTime.getMonthValue());
 	}
 	
 	@Override

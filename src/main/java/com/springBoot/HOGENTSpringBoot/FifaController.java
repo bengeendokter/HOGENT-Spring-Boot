@@ -1,5 +1,6 @@
 package com.springBoot.HOGENTSpringBoot;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -157,20 +158,22 @@ public class FifaController
 	@EventListener
 	public void seed(ContextRefreshedEvent event)
 	{
-		WedstrijdTicket ticket1 = new WedstrijdTicket(new Wedstrijd(1l, new String[] {"België", "Canada"}, 26, 21), 35);
+		WedstrijdTicket ticket1 = new WedstrijdTicket(
+				new Wedstrijd(1l, new String[] {"België", "Canada"}, LocalDateTime.of(2022, 11, 26, 21, 0)), 35);
 		WedstrijdTicket ticket2 = new WedstrijdTicket(
-				new Wedstrijd(2l, new String[] {"Brazilië", "Zwitserland"}, 27, 18), 0);
-		WedstrijdTicket ticket3 = new WedstrijdTicket(new Wedstrijd(3l, new String[] {"Marroko", "Kroatië"}, 28, 15),
-				5);
-		WedstrijdTicket ticket4 = new WedstrijdTicket(new Wedstrijd(4l, new String[] {"Spanje", "Duitsland"}, 28, 18),
-				95);
+				new Wedstrijd(2l, new String[] {"Brazilië", "Zwitserland"}, LocalDateTime.of(2022, 11, 27, 18, 0)), 0);
+		WedstrijdTicket ticket3 = new WedstrijdTicket(
+				new Wedstrijd(3l, new String[] {"Marroko", "Kroatië"}, LocalDateTime.of(2022, 11, 28, 15, 0)), 5);
+		WedstrijdTicket ticket4 = new WedstrijdTicket(
+				new Wedstrijd(4l, new String[] {"Spanje", "Duitsland"}, LocalDateTime.of(2022, 11, 28, 18, 0)), 95);
 		WedstrijdTicket ticket5 = new WedstrijdTicket(
-				new Wedstrijd(5l, new String[] {"Frankrijk", "Denemarken"}, 30, 15), 45);
-		WedstrijdTicket ticket6 = new WedstrijdTicket(new Wedstrijd(6l, new String[] {"Argentinië", "Mexico"}, 30, 18),
-				10);
-		WedstrijdTicket ticket7 = new WedstrijdTicket(new Wedstrijd(7l, new String[] {"Engeland", "USA"}, 31, 18), 22);
-		WedstrijdTicket ticket8 = new WedstrijdTicket(new Wedstrijd(8l, new String[] {"Nederland", "Qatar"}, 31, 21),
-				16);
+				new Wedstrijd(5l, new String[] {"Frankrijk", "Denemarken"}, LocalDateTime.of(2022, 11, 30, 15, 0)), 45);
+		WedstrijdTicket ticket6 = new WedstrijdTicket(
+				new Wedstrijd(6l, new String[] {"Argentinië", "Mexico"}, LocalDateTime.of(2022, 11, 30, 18, 0)), 10);
+		WedstrijdTicket ticket7 = new WedstrijdTicket(
+				new Wedstrijd(7l, new String[] {"Engeland", "USA"}, LocalDateTime.of(2022, 11, 30, 18, 0)), 22);
+		WedstrijdTicket ticket8 = new WedstrijdTicket(
+				new Wedstrijd(8l, new String[] {"Nederland", "Qatar"}, LocalDateTime.of(2022, 11, 30, 21, 0)), 16);
 		
 		Stadium stadium1 = new Stadium("Al Bayt Stadium",
 				new ArrayList<>(Arrays.asList(ticket1, ticket2, ticket3, ticket6, ticket7)));
