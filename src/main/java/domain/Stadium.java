@@ -74,4 +74,10 @@ public class Stadium implements Serializable
 	{
 		this.wedstrijdTickets = wedstrijdTickets;
 	}
+	
+	@Override
+	public String toString()
+	{
+		return naam;
+	}
 }

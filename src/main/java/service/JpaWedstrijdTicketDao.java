@@ -1,5 +1,9 @@
 package service;
 
+import java.util.List;
+
+import javax.persistence.TypedQuery;
+
 import org.springframework.stereotype.Repository;
 
 import domain.WedstrijdTicket;
@@ -18,5 +22,14 @@ public class JpaWedstrijdTicketDao extends GenericDaoJpa<WedstrijdTicket> implem
 	{
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	@Override
+	public List<WedstrijdTicket> getTicketsByStadiumNaam(String stadiumNaam)
+	{
+		TypedQuery<WedstrijdTicket> queryTicketsByStadium = em
+				.createNamedQuery("WedstrijdTicket.getTicketsByStadiumNaam", WedstrijdTicket.class);
+		queryTicketsByStadium.setParameter("stadiumNaam", stadiumNaam);
+		return queryTicketsByStadium.getResultList();
 	}
 }

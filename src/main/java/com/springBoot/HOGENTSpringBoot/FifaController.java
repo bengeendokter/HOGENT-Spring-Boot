@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -25,7 +26,7 @@ import domain.AankoopTicket;
 import domain.Stadium;
 import domain.Wedstrijd;
 import domain.WedstrijdTicket;
-import service.StadiumDao;
+import service.GenericDao;
 import service.VoetbalService;
 import service.WedstrijdTicketDao;
 import utility.Message;
@@ -45,7 +46,7 @@ public class FifaController
 	private WedstrijdTicketDao wedstrijdTicketDao;
 	
 	@Autowired
-	private StadiumDao stadiumDao;
+	private GenericDao<Stadium> stadiumDao;
 	
 	@Autowired
 	private AankoopTicketValidation aankoopTicketValidation;
@@ -54,10 +55,8 @@ public class FifaController
 	public String stadiumForm(@RequestParam(value = "verkocht", required = false) Integer verkocht, Model model,
 			Locale locale)
 	{
-//		wedstrijdTicketDao
-//				.insert(new WedstrijdTicket(new Wedstrijd("1", new String[] {"België", "Canada"}, 26, 21), 35));
-		
-		model.addAttribute("stadiums", voetbalService.getStadiumList());
+		model.addAttribute("stadiums",
+				stadiumDao.findAll().stream().map(Stadium::toString).collect(Collectors.toList()));
 		model.addAttribute("stadium", new Stadium());
 		
 		if(verkocht != null)
@@ -74,7 +73,7 @@ public class FifaController
 	public String stadiumView(@ModelAttribute Stadium stadium, Model model)
 	{
 		model.addAttribute("stadiumNaam", stadium.getNaam());
-		model.addAttribute("ticketten", voetbalService.getWedstrijdenByStadium(stadium.getNaam()));
+		model.addAttribute("ticketten", wedstrijdTicketDao.getTicketsByStadiumNaam(stadium.getNaam()));
 		
 		return "stadiumView";
 	}
@@ -82,7 +81,7 @@ public class FifaController
 	@GetMapping(value = "/{id}")
 	public String wedstrijdForm(@PathVariable("id") String id, Model model, Locale locale)
 	{
-		List<String> stadiums = voetbalService.getStadiumList();
+		List<String> stadiums = stadiumDao.findAll().stream().map(Stadium::toString).collect(Collectors.toList());
 		WedstrijdTicket wedstrijdTicket = voetbalService.getWedstrijd(id);
 		if(wedstrijdTicket == null)
 		{
@@ -105,7 +104,7 @@ public class FifaController
 		
 		for(String stadium : stadiums)
 		{
-			wedstrijden = voetbalService.getWedstrijdenByStadium(stadium);
+			wedstrijden = wedstrijdTicketDao.getTicketsByStadiumNaam(stadium);
 			if(wedstrijden.contains(wedstrijdTicket))
 			{
 				stadiumNaam = stadium;
@@ -122,7 +121,7 @@ public class FifaController
 	public String wedstrijdUpdate(@PathVariable("id") String id, @Valid AankoopTicket aankoopTicket,
 			BindingResult result, Model model, Locale locale)
 	{
-		List<String> stadiums = voetbalService.getStadiumList();
+		List<String> stadiums = stadiumDao.findAll().stream().map(Stadium::toString).collect(Collectors.toList());
 		WedstrijdTicket wedstrijdTicket = voetbalService.getWedstrijd(id);
 		
 		if(wedstrijdTicket == null)
@@ -140,7 +139,7 @@ public class FifaController
 			
 			for(String stadium : stadiums)
 			{
-				wedstrijden = voetbalService.getWedstrijdenByStadium(stadium);
+				wedstrijden = wedstrijdTicketDao.getTicketsByStadiumNaam(stadium);
 				if(wedstrijden.contains(wedstrijdTicket))
 				{
 					stadiumNaam = stadium;

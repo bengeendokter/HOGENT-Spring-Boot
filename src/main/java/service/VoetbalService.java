@@ -10,7 +10,7 @@ public interface VoetbalService
 	// stadiumDao.findAll()
 	public List<String> getStadiumList();
 	
-	// stadiumDao.getWedstrijdenByStadium(String stadium)
+	// wedstijdTicketDao.getWedstrijdenByStadium(String stadium)
 	public List<WedstrijdTicket> getWedstrijdenByStadium(String stadium);
 	
 	// wedstijdTicketDao.get(String id)
