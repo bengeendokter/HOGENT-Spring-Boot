@@ -13,8 +13,6 @@ import domain.Stadium;
 import service.GenericDao;
 import service.GenericDaoJpa;
 import service.JpaWedstrijdTicketDao;
-import service.VoetbalService;
-import service.VoetbalServiceImpl;
 import service.WedstrijdTicketDao;
 import validation.AankoopTicketValidation;
 
@@ -39,12 +37,6 @@ public class HogentSpringBootApplication implements WebMvcConfigurer
 	{
 		
 		registry.addResourceHandler("/css/**").addResourceLocations("resources/css/");
-	}
-	
-	@Bean
-	public VoetbalService voetbalService()
-	{
-		return new VoetbalServiceImpl();
 	}
 	
 	@Bean

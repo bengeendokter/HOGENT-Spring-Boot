@@ -24,7 +24,7 @@ public class WedstrijdTicket implements Serializable
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Wedstrijd wedstrijd;
@@ -107,5 +107,10 @@ public class WedstrijdTicket implements Serializable
 			return false;
 		WedstrijdTicket other = (WedstrijdTicket) obj;
 		return Objects.equals(wedstrijd, other.wedstrijd);
+	}
+	
+	public Long getId()
+	{
+		return id;
 	}
 }

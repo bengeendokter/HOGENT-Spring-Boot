@@ -18,10 +18,12 @@ public class JpaWedstrijdTicketDao extends GenericDaoJpa<WedstrijdTicket> implem
 	}
 	
 	@Override
-	public int ticketsBestellen(String id, int teBestellen)
+	public int ticketsBestellen(Long id, int teBestellen)
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		WedstrijdTicket ticket = get(id);
+		int gekocht = ticket.ticketsKopen(teBestellen);
+		update(ticket);
+		return gekocht;
 	}
 	
 	@Override

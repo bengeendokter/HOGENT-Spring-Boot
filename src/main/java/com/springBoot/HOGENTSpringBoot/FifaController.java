@@ -27,7 +27,6 @@ import domain.Stadium;
 import domain.Wedstrijd;
 import domain.WedstrijdTicket;
 import service.GenericDao;
-import service.VoetbalService;
 import service.WedstrijdTicketDao;
 import utility.Message;
 import validation.AankoopTicketValidation;
@@ -38,9 +37,6 @@ public class FifaController
 {
 	@Autowired
 	private MessageSource messageSource;
-	
-	@Autowired
-	private VoetbalService voetbalService;
 	
 	@Autowired
 	private WedstrijdTicketDao wedstrijdTicketDao;
@@ -79,10 +75,10 @@ public class FifaController
 	}
 	
 	@GetMapping(value = "/{id}")
-	public String wedstrijdForm(@PathVariable("id") String id, Model model, Locale locale)
+	public String wedstrijdForm(@PathVariable("id") Long id, Model model, Locale locale)
 	{
 		List<String> stadiums = stadiumDao.findAll().stream().map(Stadium::toString).collect(Collectors.toList());
-		WedstrijdTicket wedstrijdTicket = voetbalService.getWedstrijd(id);
+		WedstrijdTicket wedstrijdTicket = wedstrijdTicketDao.get(id);
 		if(wedstrijdTicket == null)
 		{
 			return "redirect:/fifa";
@@ -90,7 +86,8 @@ public class FifaController
 		
 		if(wedstrijdTicket.uitverkocht())
 		{
-			// TODO zelfde propleem, kan ik redirect doen en model attributes extra meegeven?
+			// TODO doe redirect want anders error
+			// TODO zelfde probleem, kan ik redirect doen en model attributes extra meegeven?
 			model.addAttribute("message",
 					new Message("error", messageSource.getMessage("tickets_uitverkocht", new Object[] {}, locale)));
 			model.addAttribute("stadiums", stadiums);
@@ -118,11 +115,11 @@ public class FifaController
 	}
 	
 	@PostMapping(value = "/{id}")
-	public String wedstrijdUpdate(@PathVariable("id") String id, @Valid AankoopTicket aankoopTicket,
-			BindingResult result, Model model, Locale locale)
+	public String wedstrijdUpdate(@PathVariable("id") Long id, @Valid AankoopTicket aankoopTicket, BindingResult result,
+			Model model, Locale locale)
 	{
 		List<String> stadiums = stadiumDao.findAll().stream().map(Stadium::toString).collect(Collectors.toList());
-		WedstrijdTicket wedstrijdTicket = voetbalService.getWedstrijd(id);
+		WedstrijdTicket wedstrijdTicket = wedstrijdTicketDao.get(id);
 		
 		if(wedstrijdTicket == null)
 		{
@@ -152,7 +149,8 @@ public class FifaController
 		}
 		
 		int aantal = aankoopTicket.getAantal();
-		int gekocht = wedstrijdTicket.ticketsKopen(aantal);
+		int gekocht = wedstrijdTicketDao.ticketsBestellen(wedstrijdTicket.getId(), aantal);
+//				wedstrijdTicket.ticketsKopen(aantal);
 		
 		return "redirect:/fifa?verkocht=" + gekocht;
 	}

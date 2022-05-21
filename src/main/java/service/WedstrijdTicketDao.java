@@ -6,7 +6,7 @@ import domain.WedstrijdTicket;
 
 public interface WedstrijdTicketDao extends GenericDao<WedstrijdTicket>
 {
-	public int ticketsBestellen(String id, int teBestellen);
+	public int ticketsBestellen(Long id, int teBestellen);
 	
 	public List<WedstrijdTicket> getTicketsByStadiumNaam(String stadiumNaam);
 }
