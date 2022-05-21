@@ -13,7 +13,7 @@ public class Wedstrijd implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	private String id; //unieke sleutel
+	private Long id; //unieke sleutel
 	
 	private String[] landen; //2 landen van de wedstrijd
 	
@@ -25,7 +25,7 @@ public class Wedstrijd implements Serializable
 	{
 	}
 	
-	public Wedstrijd(String id, String[] landen, int dag, int uur)
+	public Wedstrijd(Long id, String[] landen, int dag, int uur)
 	{
 		this.id = id;
 		this.landen = landen;
@@ -33,7 +33,7 @@ public class Wedstrijd implements Serializable
 		this.uur = uur;
 	}
 	
-	public String getId()
+	public Long getId()
 	{
 		return id;
 	}

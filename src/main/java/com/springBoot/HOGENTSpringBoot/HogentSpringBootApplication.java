@@ -10,6 +10,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import domain.Stadium;
+import domain.Wedstrijd;
 import service.GenericDao;
 import service.GenericDaoJpa;
 import service.JpaWedstrijdTicketDao;
@@ -49,6 +50,12 @@ public class HogentSpringBootApplication implements WebMvcConfigurer
 	public GenericDao<Stadium> stadiumDao()
 	{
 		return new GenericDaoJpa<>(Stadium.class);
+	}
+	
+	@Bean
+	public GenericDao<Wedstrijd> wedstrijdDao()
+	{
+		return new GenericDaoJpa<>(Wedstrijd.class);
 	}
 	
 	@Bean

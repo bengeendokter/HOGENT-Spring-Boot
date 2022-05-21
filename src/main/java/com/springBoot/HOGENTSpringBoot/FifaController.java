@@ -150,7 +150,6 @@ public class FifaController
 		
 		int aantal = aankoopTicket.getAantal();
 		int gekocht = wedstrijdTicketDao.ticketsBestellen(wedstrijdTicket.getId(), aantal);
-//				wedstrijdTicket.ticketsKopen(aantal);
 		
 		return "redirect:/fifa?verkocht=" + gekocht;
 	}
@@ -158,20 +157,19 @@ public class FifaController
 	@EventListener
 	public void seed(ContextRefreshedEvent event)
 	{
-		WedstrijdTicket ticket1 = new WedstrijdTicket(new Wedstrijd("1", new String[] {"België", "Canada"}, 26, 21),
-				35);
+		WedstrijdTicket ticket1 = new WedstrijdTicket(new Wedstrijd(1l, new String[] {"België", "Canada"}, 26, 21), 35);
 		WedstrijdTicket ticket2 = new WedstrijdTicket(
-				new Wedstrijd("2", new String[] {"Brazilië", "Zwitserland"}, 27, 18), 0);
-		WedstrijdTicket ticket3 = new WedstrijdTicket(new Wedstrijd("3", new String[] {"Marroko", "Kroatië"}, 28, 15),
+				new Wedstrijd(2l, new String[] {"Brazilië", "Zwitserland"}, 27, 18), 0);
+		WedstrijdTicket ticket3 = new WedstrijdTicket(new Wedstrijd(3l, new String[] {"Marroko", "Kroatië"}, 28, 15),
 				5);
-		WedstrijdTicket ticket4 = new WedstrijdTicket(new Wedstrijd("4", new String[] {"Spanje", "Duitsland"}, 28, 18),
+		WedstrijdTicket ticket4 = new WedstrijdTicket(new Wedstrijd(4l, new String[] {"Spanje", "Duitsland"}, 28, 18),
 				95);
 		WedstrijdTicket ticket5 = new WedstrijdTicket(
-				new Wedstrijd("5", new String[] {"Frankrijk", "Denemarken"}, 30, 15), 45);
-		WedstrijdTicket ticket6 = new WedstrijdTicket(new Wedstrijd("6", new String[] {"Argentinië", "Mexico"}, 30, 18),
+				new Wedstrijd(5l, new String[] {"Frankrijk", "Denemarken"}, 30, 15), 45);
+		WedstrijdTicket ticket6 = new WedstrijdTicket(new Wedstrijd(6l, new String[] {"Argentinië", "Mexico"}, 30, 18),
 				10);
-		WedstrijdTicket ticket7 = new WedstrijdTicket(new Wedstrijd("7", new String[] {"Engeland", "USA"}, 31, 18), 22);
-		WedstrijdTicket ticket8 = new WedstrijdTicket(new Wedstrijd("8", new String[] {"Nederland", "Qatar"}, 31, 21),
+		WedstrijdTicket ticket7 = new WedstrijdTicket(new Wedstrijd(7l, new String[] {"Engeland", "USA"}, 31, 18), 22);
+		WedstrijdTicket ticket8 = new WedstrijdTicket(new Wedstrijd(8l, new String[] {"Nederland", "Qatar"}, 31, 21),
 				16);
 		
 		Stadium stadium1 = new Stadium("Al Bayt Stadium",
