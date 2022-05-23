@@ -9,28 +9,30 @@
 <meta charset="ISO-8859-1">
 <spring:url value="/css/style.css" var="urlCss" />
 <link rel="stylesheet" href="${urlCss}" type="text/css" />
-<title>Select Stadium</title>
+<title>Stadium</title>
 </head>
 <body>
+
+	<form action="/logout" method="post">
+		<input type="submit" value="Log uit" /> <input type="hidden"
+			name="${_csrf.parameterName}" value="${_csrf.token}" />
+	</form>
+	
+	<h1>FIFA World Cup Qatar 2022</h1>
+
 	<c:if test="${not empty message}">
 		<p class="${message.type}">${message.message}</p>
 	</c:if>
 
-	<h1>FIFA World Cup Qatar 2022</h1>
 	<form:form method="POST" action="fifa" modelAttribute="stadium">
-            stadiums 
-        <form:select path="naam" multiple="false">
+            <label for="stadiums">Stadiums:</label> 
+        <form:select id="stadiums" path="naam" multiple="false">
 
 			<form:options items="${stadiums}"></form:options>
 
 		</form:select>
 		<input type="submit" value="Voer uit" />
 	</form:form>
-
-	<form action="/logout" method="post">
-		<input type="submit" value="Log out" /> <input type="hidden"
-			name="${_csrf.parameterName}" value="${_csrf.token}" />
-	</form>
 
 </body>
 </html>

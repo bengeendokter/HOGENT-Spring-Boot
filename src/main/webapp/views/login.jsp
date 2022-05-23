@@ -6,48 +6,43 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-        <title>Login Page</title>
+        <title>Login</title>
         <spring:url value="/css/style.css" var="urlCss"/>
        <link rel="stylesheet" href="${urlCss}" type="text/css" />
 </head>
 
-    <body onload='document.loginForm.username.focus();'>
+    <body>
 
-        <h1>Spring Security Custom Login Form (Annotation)</h1>
 
-        <div id="login-box">
-
-            <h3>Login with Username and Password</h3>
+            <h1>Log in met gebruikersnaam en wachtwoord</h1>
 
             <c:if test="${not empty error}">
-                <div class="error">${error}</div>
+                <p class="error">${error}</p>
             </c:if>
                 
             <c:if test="${not empty msg}">
-                <div class="msg">${msg}</div>
+                <p class="msg">${msg}</p>
             </c:if>
 
            <form action="login" method="POST">
-                <table>
-                    <tr>
-                        <td>User:</td>
-                        <td><input type='text' name='username' value=''></td>
-                    </tr>
-                    <tr>
-                        <td>Password:</td>
-                        <td><input type='password' name='password' /></td>
-                    </tr>
-                    <tr>
-                        <td colspan='2'><input name="submit" type="submit"
-                                               value="submit" /></td>
-                    </tr>
-                </table>
+
+                
+                        <label for="username" >Gebruikersnaam:</label>
+                        <input id="username" type='text' name='username' autofocus value=''/>
+            
+                        <label for="password" >Wachtwoord:</label>
+                        <input id="password" type='password' name='password' />
+
+                        <input name="submit" type="submit"
+                                               value="Log in" />
+                    
+
 
                 <input type="hidden" name="${_csrf.parameterName}"
                        value="${_csrf.token}" />
 
             </form>
-        </div>
+
 
     </body>
 </html>

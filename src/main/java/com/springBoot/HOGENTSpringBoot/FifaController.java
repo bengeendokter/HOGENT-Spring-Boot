@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import domain.AankoopTicket;
 import domain.Stadium;
@@ -34,6 +34,8 @@ import validation.AankoopTicketValidation;
 
 @Controller
 @RequestMapping("/fifa")
+
+@SessionAttributes("message")
 public class FifaController
 {
 	@Autowired
@@ -49,20 +51,11 @@ public class FifaController
 	private AankoopTicketValidation aankoopTicketValidation;
 	
 	@GetMapping
-	public String stadiumForm(@RequestParam(value = "verkocht", required = false) Integer verkocht, Model model,
-			Locale locale)
+	public String stadiumForm(Model model, Locale locale)
 	{
-		// TODO url parameters verwijderen
 		model.addAttribute("stadiums",
 				stadiumDao.findAll().stream().map(Stadium::toString).collect(Collectors.toList()));
 		model.addAttribute("stadium", new Stadium());
-		
-		if(verkocht != null)
-		{
-			String code = verkocht == 1 ? "ticket_gekocht" : "tickets_gekocht";
-			model.addAttribute("message",
-					new Message("error", messageSource.getMessage(code, new Object[] {verkocht}, locale)));
-		}
 		
 		return "stadiumForm";
 	}
@@ -70,6 +63,7 @@ public class FifaController
 	@PostMapping
 	public String stadiumView(@ModelAttribute Stadium stadium, Model model)
 	{
+		model.addAttribute("message", new Message());
 		model.addAttribute("stadiumNaam", stadium.getNaam());
 		model.addAttribute("ticketten", wedstrijdTicketDao.getTicketsByStadiumNaam(stadium.getNaam()));
 		
@@ -79,6 +73,7 @@ public class FifaController
 	@GetMapping(value = "/{id}")
 	public String wedstrijdForm(@PathVariable("id") Long id, Model model, Locale locale)
 	{
+		model.addAttribute("message", new Message());
 		List<String> stadiums = stadiumDao.findAll().stream().map(Stadium::toString).collect(Collectors.toList());
 		WedstrijdTicket wedstrijdTicket = wedstrijdTicketDao.get(id);
 		if(wedstrijdTicket == null)
@@ -88,13 +83,10 @@ public class FifaController
 		
 		if(wedstrijdTicket.uitverkocht())
 		{
-			// TODO doe redirect met session attributes want anders error
 			model.addAttribute("message",
 					new Message("error", messageSource.getMessage("tickets_uitverkocht", new Object[] {}, locale)));
-			model.addAttribute("stadiums", stadiums);
-			model.addAttribute("stadium", new Stadium());
 			
-			return "stadiumForm";
+			return "redirect:/fifa";
 		}
 		
 		List<WedstrijdTicket> wedstrijden;
@@ -131,7 +123,6 @@ public class FifaController
 		
 		if(result.hasErrors())
 		{
-			// TODO dit doen of redirect en aankoopTicket toevoegen in GetMapping?
 			List<WedstrijdTicket> wedstrijden;
 			String stadiumNaam = "";
 			
@@ -152,7 +143,11 @@ public class FifaController
 		int aantal = aankoopTicket.getAantal();
 		int gekocht = wedstrijdTicketDao.ticketsBestellen(wedstrijdTicket.getId(), aantal);
 		
-		return "redirect:/fifa?verkocht=" + gekocht;
+		String code = gekocht == 1 ? "ticket_gekocht" : "tickets_gekocht";
+		model.addAttribute("message",
+				new Message("error", messageSource.getMessage(code, new Object[] {gekocht}, locale)));
+		
+		return "redirect:/fifa";
 	}
 	
 	@EventListener
