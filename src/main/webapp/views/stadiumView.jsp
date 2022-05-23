@@ -32,7 +32,7 @@
 			<spring:url value="/fifa/" var="showWedstrijdUrl" />
 			<c:forEach var="ticket" items="${ticketten}">
 				<tr>
-					<td><a href="${showWedstrijdUrl}${ticket.wedstrijd.id}">${ticket.wedstrijd.id}</a></td>
+					<td class="button_td"><a href="${showWedstrijdUrl}${ticket.wedstrijd.id}">${ticket.wedstrijd.id}</a></td>
 					<td>${ticket.wedstrijd.landen[0]}-${ticket.wedstrijd.landen[1]}</td>
 					<td><fmt:parseDate value="${ticket.wedstrijd.dateTime}"
 							pattern="yyyy-MM-dd'T'HH:mm" var="parsedDate" /> <fmt:formatDate

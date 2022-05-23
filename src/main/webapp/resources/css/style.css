@@ -28,6 +28,7 @@ html
 *
 {
     border-radius: inherit;
+    padding: inherit;
 }
 
 .error, .msg
@@ -39,6 +40,7 @@ input, select, a
 {
     background: var(--clr-interact);
     border: 2px solid;
+    padding-inline: 0.5em;
 }
 
 input:hover, select:hover, a:hover, :focus-visible
@@ -63,7 +65,18 @@ table
 {
   border: 2px solid;
   margin-inline: auto;
-  text-align: left;
+  border-spacing: 0;
+}
+
+table > *
+{
+    border-radius: 0px;
+}
+
+.button_td
+{
+    display: flex;
+    justify-content: center;
 }
 
 tbody tr:nth-of-type(2n+1)
@@ -75,4 +88,48 @@ a, a:visited
 {
     text-decoration: none;
     color: inherit;
+    min-width: 3ch;
+    text-align: center;
+    border-radius: 15px;
+}
+
+/* ticket kopen */
+strong
+{
+    font-size: 1.3em;
+}
+
+.ticket_form
+{
+    justify-content: center;
+    justify-items: end;
+}
+
+.form_container
+{
+    display: grid;
+    grid-template-areas:
+    "error error" 
+    "label input";
+    justify-items: end;
+}
+
+.form_container .error
+{
+    grid-area: error;
+}
+
+.form_container label
+{
+    grid-area: label;
+}
+
+.form_container input
+{
+    grid-area: input;
+}
+
+input[type="submit"]
+{
+    margin-inline: auto;
 }
