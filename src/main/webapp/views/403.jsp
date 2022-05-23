@@ -8,14 +8,14 @@
 <meta charset="ISO-8859-1">
 <spring:url value="/css/style.css" var="urlCss" />
 <link rel="stylesheet" href="${urlCss}" type="text/css" />
-<title>Access is denied</title>
+<title>Toegang geweigerd</title>
 </head>
 <body>
-	<h1>HTTP Status 403 - Access is denied</h1>
-	<h3>Message : You do not have permission to access this page!</h3>
+	<h1>HTTP Status 403 - Toegang geweigerd</h1>
+	<p class="error">Melding: U heeft geen toegang tot deze pagina!</p>
 
 	<form action="/logout" method="post">
-		<input type="submit" value="Log out" /> <input type="hidden"
+		<input type="submit" value="Keer terug" /> <input type="hidden"
 			name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
 

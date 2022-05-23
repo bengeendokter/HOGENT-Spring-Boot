@@ -8,11 +8,15 @@
 <head>
 <spring:url value="/css/style.css" var="urlCss" />
 <link rel="stylesheet" href="${urlCss}" type="text/css" />
-<title>Stadion: ${stadiumNaam}</title>
+<title>Stadium: ${stadiumNaam}</title>
 </head>
 <body>
+	<form action="/logout" method="post">
+		<input class="logout" type="submit" value="Log uit" /> <input type="hidden"
+			name="${_csrf.parameterName}" value="${_csrf.token}" />
+	</form>
 	<h1>FIFA World Cup Qatar 2022</h1>
-	<h2>Stadion: ${stadiumNaam}</h2>
+	<h2>Stadium: ${stadiumNaam}</h2>
 	<table>
 		<thead>
 			<tr>
@@ -41,10 +45,6 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	<form action="/logout" method="post">
-		<input type="submit" value="Log out" /> <input type="hidden"
-			name="${_csrf.parameterName}" value="${_csrf.token}" />
-	</form>
 
 </body>
 </html>

@@ -1,8 +1,78 @@
-table, td, th {
-    border: 2px solid;
-    border-collapse: collapse;
+:root
+{
+  --hsl-interact: 235, 86%, 65%;
+  --hsl-interact-active: 235, 58%, 46%;
+  --hsl-foreground: 0, 0%, 100%;
+  --hsl-background: 220, 8%, 23%;
+  --hsl-background-faded: 218, 8%, 28%;
+  --hsl-negative: 360, 84%, 53%;
+  --clr-interact: hsla(var(--hsl-interact));
+  --clr-interact-active: hsla(var(--hsl-interact-active));
+  --clr-foreground: hsla(var(--hsl-foreground));
+  --clr-background: hsla(var(--hsl-background));
+  --clr-background-faded: hsla(var(--hsl-background-faded));
+  --clr-negative: hsla(var(--hsl-negative));
+  color-scheme: dark;
 }
 
-.error {
-	color: red;
+html
+{
+    color: var(--clr-foreground);
+    background: var(--clr-background);
+    border-radius: 15px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0.3em;
+}
+
+*
+{
+    border-radius: inherit;
+}
+
+.error, .msg
+{
+  color: var(--clr-negative);
+}
+
+input, select, a
+{
+    background: var(--clr-interact);
+    border: 2px solid;
+}
+
+input:hover, select:hover, a:hover, :focus-visible
+{
+    background: var(--clr-interact-active);
+}
+
+form
+{
+    display: grid;
+    justify-items: center;
+    gap: 0.9em;
+}
+
+.logout
+{
+    margin-inline-start: auto;
+}
+
+/* wedstrijden */
+table
+{
+  border: 2px solid;
+  margin-inline: auto;
+  text-align: left;
+}
+
+tbody tr:nth-of-type(2n+1)
+{
+    background: var(--clr-background-faded);
+}
+
+a, a:visited
+{
+    text-decoration: none;
+    color: inherit;
 }

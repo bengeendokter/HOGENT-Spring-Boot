@@ -12,8 +12,6 @@
 </head>
 
     <body>
-
-
             <h1>Log in met gebruikersnaam en wachtwoord</h1>
 
             <c:if test="${not empty error}">
