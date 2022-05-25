@@ -27,7 +27,7 @@ public class AankoopTicket
 	
 	public AankoopTicket(WedstrijdTicket wedstrijdTicket)
 	{
-		this.wedstrijdTicket = wedstrijdTicket;
+		setWedstrijdTicket(wedstrijdTicket);
 	}
 	
 	public String getEmail()
@@ -68,5 +68,15 @@ public class AankoopTicket
 	public void setVoetbalCode2(Integer voetbalCode2)
 	{
 		this.voetbalCode2 = voetbalCode2;
+	}
+	
+	public WedstrijdTicket getWedstrijdTicket()
+	{
+		return wedstrijdTicket;
+	}
+	
+	public void setWedstrijdTicket(WedstrijdTicket wedstrijdTicket)
+	{
+		this.wedstrijdTicket = wedstrijdTicket;
 	}
 }
