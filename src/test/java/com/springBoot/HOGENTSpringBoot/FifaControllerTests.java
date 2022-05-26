@@ -92,7 +92,7 @@ class FifaControllerTests
 	@Test
 	public void testFifaIdGet() throws Exception
 	{
-		WedstrijdTicket expResult = new WedstrijdTicket(new Wedstrijd(), 40);
+		WedstrijdTicket expResult = new WedstrijdTicket(1l, new Wedstrijd(), 40);
 		Mockito.when(ticketMock.get(1l)).thenReturn(expResult);
 		ReflectionTestUtils.setField(controller, "wedstrijdTicketDao", ticketMock);
 		
@@ -112,7 +112,7 @@ class FifaControllerTests
 	@Test
 	public void testFifaIdPost() throws Exception
 	{
-		WedstrijdTicket expResult = new WedstrijdTicket(new Wedstrijd(), 40);
+		WedstrijdTicket expResult = new WedstrijdTicket(1l, new Wedstrijd(), 40);
 		Mockito.when(ticketMock.get(1l)).thenReturn(expResult);
 		ReflectionTestUtils.setField(controller, "wedstrijdTicketDao", ticketMock);
 		
