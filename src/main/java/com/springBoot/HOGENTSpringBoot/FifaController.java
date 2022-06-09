@@ -63,6 +63,7 @@ public class FifaController
 	@PostMapping
 	public String stadiumView(@ModelAttribute Stadium stadium, Model model)
 	{
+		// vanaf dat dit scherm bereikt is, reset message session attribute voor stadiumForm
 		model.addAttribute("message", new Message());
 		model.addAttribute("stadiumNaam", stadium.getNaam());
 		model.addAttribute("ticketten", wedstrijdTicketDao.getTicketsByStadiumNaam(stadium.getNaam()));
@@ -73,6 +74,7 @@ public class FifaController
 	@GetMapping(value = "/{id}")
 	public String wedstrijdForm(@PathVariable("id") Long id, Model model, Locale locale)
 	{
+		// vanaf dat dit scherm bereikt is, reset message session attribute voor stadiumForm
 		model.addAttribute("message", new Message());
 		List<String> stadiums = stadiumDao.findAll().stream().map(Stadium::toString).collect(Collectors.toList());
 		WedstrijdTicket wedstrijdTicket = wedstrijdTicketDao.get(id);
